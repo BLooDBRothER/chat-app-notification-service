@@ -1,0 +1,11 @@
+{
+    "verbose": false,
+    "ignore": [
+        "node_modules"
+    ],
+    "watch": [
+        "src"
+    ],
+    "exec": "clear && npm start",
+    "ext": "ts"
+}

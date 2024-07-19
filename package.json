@@ -1,0 +1,35 @@
+{
+  "name": "chat_app_notification_service",
+  "version": "1.0.0",
+  "description": "Notification service for chat app",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "webpack --mode=production --node-env=production",
+    "start": "webpack --mode=development && node dist/server.js",
+    "build:dev": "webpack --mode=development",
+    "watch": "webpack --watch",
+    "prettier": "prettier \"src/**/*.ts\"",
+    "prettier:check": "yarn prettier --check",
+    "prettier:fix": "yarn prettier --write"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "dotenv": "^16.4.5",
+    "firebase-admin": "^12.2.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.5",
+    "@types/express": "^4.17.21",
+    "@webpack-cli/generators": "^3.0.7",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.3",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
