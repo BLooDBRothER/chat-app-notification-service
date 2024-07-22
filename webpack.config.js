@@ -10,7 +10,7 @@ const config = {
     entry: './src/server.ts',
     output: {
         filename: 'server.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, isProduction ? 'dist' : 'dev'),
     },
 
     plugins: [

@@ -6,6 +6,6 @@
     "watch": [
         "src"
     ],
-    "exec": "clear && npm start",
+    "exec": "clear && npm run build:dev",
     "ext": "ts"
 }
