@@ -1,4 +1,6 @@
-node_modules/
+firebase.json
+node_modules
+.env
 dist/
 dev/
-.env
+.idea/
