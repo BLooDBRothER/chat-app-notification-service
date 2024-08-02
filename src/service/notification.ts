@@ -1,6 +1,7 @@
+import { NotificationPayloadType } from "@/type/NotificationPayloadType";
 import admin from "firebase-admin";
 
-async function sendPushNotification(token: string, title: string, body: string, payload: object) {
+async function sendPushNotification(token: string, title: string, body: string, payload: NotificationPayloadType) {
     const message = {
         "notification": {
             title,
