@@ -12,7 +12,7 @@ const createGroupNotification = async (queue: string, msg: amqplib.ConsumeMessag
     const groupDocument = await firestore().collection("groups").doc(groupId).get();
     const groupData = groupDocument.data() as GroupType;
 
-    const userIds = groupData.pending_request;
+    const userIds = groupData.pendingRequest;
 
     userIds.forEach(async userId => {
         const userDocument = await firestore().collection("users").doc(userId).get();
@@ -23,7 +23,6 @@ const createGroupNotification = async (queue: string, msg: amqplib.ConsumeMessag
 
         const msgPayload = {
             type: queue,
-            groupId
         }
 
         sendPushNotification(userData.fcmToken, title, body, msgPayload);

@@ -1,12 +1,12 @@
 type GroupType = {
     name: string
-    profile_pic: string,
+    profileImage: string,
     admin: string[],
     users: string[],
-    pending_request: string[],
-    "is_notification_triggered": boolean,
-    "created_at": Date,
-    "updated_at": Date
+    pendingRequest: string[],
+    "isNotificationTriggered": boolean,
+    "createdAt": Date,
+    "updatedAt": Date
 }
 
 export default GroupType;
