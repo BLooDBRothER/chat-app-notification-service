@@ -1,10 +1,12 @@
 import rabbitMq from "@/rabbitMq/rabbitMq";
-import createGroupNotification from "./notification/group/createGroup";
 import { QUEUE } from "@/constants/rabbitMq";
+import GroupNotification from "./notification/group/groups";
+
+const groupNotification = GroupNotification();
 
 const initAllConsumers = async () => {
     const consumers = {
-        [QUEUE.GROUP_CREATE]: createGroupNotification,
+        [QUEUE.GROUP_CREATE]: groupNotification.createGroupNotification,
     }
 
     await rabbitMq.initConnection();
