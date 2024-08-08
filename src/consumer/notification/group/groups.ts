@@ -8,9 +8,10 @@ import { firestore } from "firebase-admin";
 const GroupNotification = () => {
 
     const createGroupNotification = async (queue: string, msg: amqplib.ConsumeMessage) => {
+        console.log(`[Info]: RabbitMQ | Consuming Msg on the queue ${queue} | ${msg.content.toString()}`);
 
-        console.log(`[Info]: RabbitMQ | Consuming Msg on the queue ${queue}...`);
         const { groupId } = JSON.parse(msg.content.toString());
+
         const groupDocument = await firestore().collection("groups").doc(groupId).get();
         const groupData = groupDocument.data() as GroupType;
     
@@ -28,10 +29,45 @@ const GroupNotification = () => {
             }
     
             sendPushNotification(userData.fcmToken, title, body, msgPayload);
-        })
+        });
     }
 
-    return { createGroupNotification };
+    const userAcceptGroupNotification = async (queue: string, msg: amqplib.ConsumeMessage) => {
+        console.log(`[Info]: RabbitMQ | Consuming Msg on the queue ${queue} | ${msg.content}`);
+        
+        const { groupId, userId: acceptedUserId } = JSON.parse(msg.content.toString());
+
+        const groupDocument = await firestore().collection("groups").doc(groupId).get();
+        const groupData = groupDocument.data() as GroupType;
+
+        const userDocument = await firestore().collection("users").doc(acceptedUserId).get();
+        const acceptedUserData = userDocument.data() as UserType;
+
+        const userIds = [...groupData.admin, ...groupData.users];
+    
+        userIds.forEach(async userId => {
+            if(userId === acceptedUserId) {
+                return;
+            }
+
+            const userDocument = await firestore().collection("users").doc(userId).get();
+            const userData = userDocument.data() as UserType;
+    
+            const title = `Hurray Guess who joined!`;
+            const body = `Welcome ${acceptedUserData.username}! to the ${groupData.name}`;
+
+            const msgPayload = {
+                type: queue,
+                msgData: {
+                    groupId
+                }
+            }
+    
+            sendPushNotification(userData.fcmToken, title, body, msgPayload);
+        });
+    }
+
+    return { createGroupNotification, userAcceptGroupNotification };
 }
 
 

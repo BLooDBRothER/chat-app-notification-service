@@ -7,6 +7,7 @@ const groupNotification = GroupNotification();
 const initAllConsumers = async () => {
     const consumers = {
         [QUEUE.GROUP_CREATE]: groupNotification.createGroupNotification,
+        [QUEUE.USER_GROUP_ACCEPT]: groupNotification.userAcceptGroupNotification
     }
 
     await rabbitMq.initConnection();
